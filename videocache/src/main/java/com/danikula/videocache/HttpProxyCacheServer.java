@@ -217,7 +217,7 @@ public class HttpProxyCacheServer {
      * 停止缓存视频文件并关闭
      * 注:自定义方法,原项目地址没有这个方法
      * added by 蔡勇
-     * @param url
+     * @param url 原始的url，非本地代理后的url
      */
     public void stopCacheAndShutdown(String url){
         synchronized (clientsLock) {
