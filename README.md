@@ -10,10 +10,11 @@
 ## 2.基于https://github.com/danikula/AndroidVideoCache 2.7.0版本
 
 ## 3.HttpProxyCacheServer类中增加方法stopCacheAndShutdown
+</code>
 /**
      * 停止缓存视频文件并关闭
      * 注:自定义方法,原项目地址没有这个方法
-     * added by 蔡勇
+     * added by yongc
      * @param url
      */
     public void stopCacheAndShutdown(String url){
@@ -24,3 +25,4 @@
             }
         }
     }
+</code>
