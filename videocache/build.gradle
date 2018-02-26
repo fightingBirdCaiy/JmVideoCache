@@ -1,0 +1,70 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
+apply plugin: 'maven'
+
+def MAVEN_LOCAL_PATH ='http://app.int.jumei.com:8081/nexus/content/repositories/release/'
+def ARTIFACT_ID = 'jmvideocache'
+
+def VERSION_NAME = '2.7.0dev2'
+
+def GROUP_ID = 'com.jm.android'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion '23.0.3'
+    resourcePrefix "videocache_"
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 23
+        versionCode 1
+        versionName VERSION_NAME
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            java.srcDirs = ['src/main/java']
+            resources.srcDirs = ['src/main/res']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+        }
+
+        instrumentTest.setRoot('tests')
+
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'org.slf4j:slf4j-android:1.7.21'
+}
+
+uploadArchives {
+    repositories {
+
+        mavenDeployer {
+            repository(url:MAVEN_LOCAL_PATH ){
+                //---TODO---
+                authentication(userName: "admin", password:"***")
+            }
+            pom.project {
+                groupId GROUP_ID
+                artifactId ARTIFACT_ID
+                version VERSION_NAME
+                packaging 'aar'
+            }
+        }
+    }
+}
